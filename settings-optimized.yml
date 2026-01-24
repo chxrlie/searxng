@@ -111,8 +111,8 @@ ui:
   # Privacy: Don't include query in page title
   query_in_title: false
   
-  # Theme: Terminal-Mono (custom theme)
-  default_theme: terminal-mono
+  # Theme: Simple (built-in theme)
+  default_theme: simple
   
   # Layout: Left-aligned (terminal-style)
   center_alignment: false
@@ -721,6 +721,18 @@ engines:
     # Tertiary: CC-licensed content
 
 # =============================================================================
+# DOI RESOLVERS
+# =============================================================================
+doi_resolvers:
+  oadoi.org: 'https://oadoi.org/'
+  doi.org: 'https://doi.org/'
+  sci-hub.se: 'https://sci-hub.se/'
+  sci-hub.st: 'https://sci-hub.st/'
+  sci-hub.ru: 'https://sci-hub.ru/'
+
+default_doi_resolver: 'oadoi.org'
+
+# =============================================================================
 # END OF CONFIGURATION
 # =============================================================================
 # Total engines configured: 48
@@ -733,11 +745,6 @@ engines:
 # 2. Change secret_key to a strong random value
 # 3. Restart SearXNG: sudo systemctl restart searxng
 # 4. Visit http://localhost:8888 and enjoy!
-#
-# To enable terminal-mono theme:
-# 1. Ensure theme files are in searx/static/themes/terminal-mono/
-# 2. The theme is already set as default: ui.default_theme: terminal-mono
-# 3. Users can change theme in preferences if needed
 #
 # Performance tips:
 # - Enable Valkey caching for frequently searched queries
