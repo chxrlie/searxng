@@ -234,490 +234,488 @@ categories_as_tabs:
 # =============================================================================
 
 engines:
-
   # ========================================
   # GENERAL WEB SEARCH (8 engines)
   # ========================================
-  
+
   - name: brave
     engine: brave
     shortcut: br
-    time_range_support: true
     categories: [general, web]
-    weight: 1.5
+    time_range_support: true
     timeout: 2.5
+    weight: 1.5
     # Primary: Fast, privacy-focused, independent index
-  
+
   - name: duckduckgo
     engine: duckduckgo
     shortcut: ddg
     categories: [general, web]
-    weight: 1.5
     timeout: 2.5
+    weight: 1.5
     # Primary: Privacy-first, reliable, good results
-  
+
   - name: google
     engine: google
     shortcut: go
-    use_mobile_ui: false
     categories: [general, web]
-    weight: 1.5
     timeout: 3.0
+    use_mobile_ui: false
+    weight: 1.5
     # Primary: Best index coverage, highest relevancy
-  
+
   - name: startpage
     engine: startpage
     shortcut: sp
     categories: [general, web]
-    weight: 1.0
     timeout: 3.0
+    weight: 1.0
     # Secondary: Google results with privacy
-  
+
   - name: bing
     engine: bing
     shortcut: bi
     categories: [general, web]
-    weight: 1.0
     timeout: 2.5
+    weight: 1.0
     # Secondary: Good index, fast response
-  
+
   - name: mojeek
     engine: xpath
-    paging: true
-    search_url: https://www.mojeek.com/search?q={query}&s={pageno}
-    url_xpath: //h2[@class="title"]/a/@href
-    title_xpath: //h2[@class="title"]
+    shortcut: mjk
+    categories: [general, web]
     content_xpath: //p[@class="s"]
-    suggestion_xpath: //div[@class="top-info"]/p/a
     first_page_num: 0
     page_size: 10
-    categories: [general, web]
-    shortcut: mjk
-    weight: 0.5
+    paging: true
+    search_url: https://www.mojeek.com/search?q={query}&s={pageno}
+    suggestion_xpath: //div[@class="top-info"]/p/a
     timeout: 3.0
+    title_xpath: //h2[@class="title"]
+    url_xpath: //h2[@class="title"]/a/@href
+    weight: 0.5
     # Tertiary: Independent index, privacy-focused
-  
+
   - name: qwant
     engine: qwant
     shortcut: qw
     categories: [general, web]
-    weight: 0.5
-    timeout: 3.0
     disabled: true
+    timeout: 3.0
+    weight: 0.5
     # Tertiary: European, privacy-focused (often unstable)
-  
+
   - name: searx
     engine: searx
     shortcut: sx
     categories: [general]
-    # Instance list: https://searx.space
+    disabled: true
     instance_urls:
       - https://searx.be
       - https://search.mdosch.de
-    weight: 0.3
     timeout: 4.0
-    disabled: true
+    weight: 0.3
     # Research: Meta-search, diverse results
+    # Instance list: https://searx.space
 
   # ========================================
   # IMAGES (6 engines)
   # ========================================
-  
+
   - name: bing images
     engine: bing_images
     shortcut: bii
     categories: [images]
-    weight: 1.5
     timeout: 3.5
+    weight: 1.5
     # Primary: Excellent image search, fast
-  
+
   - name: google images
     engine: google_images
     shortcut: goi
     categories: [images]
-    weight: 1.5
     timeout: 3.5
+    weight: 1.5
     # Primary: Best coverage, high quality
-  
+
   - name: brave images
     engine: brave
     shortcut: bri
     categories: [images]
     network: brave
-    weight: 1.0
     timeout: 3.5
+    weight: 1.0
     # Secondary: Privacy-focused image search
-  
+
   - name: unsplash
     engine: unsplash
     shortcut: us
     categories: [images]
-    weight: 0.5
     timeout: 4.0
+    weight: 0.5
     # Tertiary: High-quality free photos
-  
+
   - name: pixabay
     engine: xpath
+    shortcut: pix
+    categories: [images]
+    disabled: true
+    img_src_xpath: //div[@class="item"]/a/img/@src
     paging: true
     search_url: https://pixabay.com/en/photos/?q={query}&page={pageno}
-    url_xpath: //div[@class="item"]/a/@href
-    title_xpath: //div[@class="item"]/a/img/@alt
-    img_src_xpath: //div[@class="item"]/a/img/@src
     thumbnail_xpath: //div[@class="item"]/a/img/@src
-    categories: [images]
-    shortcut: pix
-    weight: 0.5
     timeout: 4.0
-    disabled: true
+    title_xpath: //div[@class="item"]/a/img/@alt
+    url_xpath: //div[@class="item"]/a/@href
+    weight: 0.5
     # Tertiary: Free stock photos
-  
+
   - name: flickr
     engine: flickr
     shortcut: fl
     categories: [images]
-    weight: 0.5
-    timeout: 4.0
     disabled: true
+    timeout: 4.0
+    weight: 0.5
     # Tertiary: Photo community, diverse content
 
   # ========================================
   # VIDEOS (5 engines)
   # ========================================
-  
+
   - name: google videos
     engine: google_videos
     shortcut: gov
     categories: [videos]
-    weight: 1.5
     timeout: 3.5
+    weight: 1.5
     # Primary: Best video search coverage
-  
+
   - name: bing videos
     engine: bing_videos
     shortcut: biv
     categories: [videos]
-    weight: 1.0
     timeout: 3.5
+    weight: 1.0
     # Secondary: Good video index
-  
+
   - name: brave videos
     engine: brave
     shortcut: brv
     categories: [videos]
-    network: brave
-    weight: 1.0
-    timeout: 3.5
     disabled: true
+    network: brave
+    timeout: 3.5
+    weight: 1.0
     # Secondary: Privacy-focused video search
-  
+
   - name: piped
     engine: piped
     shortcut: ppd
     categories: [videos]
     piped_filter: all
-    weight: 0.5
     timeout: 4.0
+    weight: 0.5
     # Tertiary: Privacy-respecting YouTube frontend
-  
+
   - name: media.ccc.de
     engine: mediathekviewweb
     shortcut: mccc
     categories: [videos]
-    # Search for videos from German public broadcasters
-    # and Chaos Computer Club events
-    weight: 0.3
-    timeout: 5.0
     disabled: true
+    timeout: 5.0
+    weight: 0.3
     # Research: Technical talks, conferences
+    # Search for videos from German public broadcasters and Chaos Computer Club events
 
   # ========================================
   # NEWS (5 engines)
   # ========================================
-  
+
   - name: google news
     engine: google_news
     shortcut: gon
     categories: [news]
-    weight: 1.5
     timeout: 3.0
+    weight: 1.5
     # Primary: Comprehensive news coverage
-  
+
   - name: bing news
     engine: bing_news
     shortcut: bin
     categories: [news]
-    weight: 1.0
     timeout: 3.0
+    weight: 1.0
     # Secondary: Good news aggregation
-  
+
   - name: brave news
     engine: brave
     shortcut: brn
     categories: [news]
-    network: brave
-    weight: 1.0
-    timeout: 3.0
     disabled: true
+    network: brave
+    timeout: 3.0
+    weight: 1.0
     # Secondary: Privacy-focused news
-  
+
   - name: yahoo news
     engine: yahoo_news
     shortcut: yhn
     categories: [news]
-    weight: 0.5
     timeout: 3.5
+    weight: 0.5
     # Tertiary: Aggregated news content
-  
+
   - name: reuters
     engine: xpath
+    shortcut: rt
+    categories: [news]
+    content_xpath: //p[@class="search-result-description"]
+    disabled: true
     paging: false
     search_url: https://www.reuters.com/site-search/?query={query}
-    url_xpath: //div[@class="search-result-content"]/a/@href
-    title_xpath: //h3[@class="search-result-title"]
-    content_xpath: //p[@class="search-result-description"]
-    categories: [news]
-    shortcut: rt
-    weight: 1.0
     timeout: 4.0
-    disabled: true
+    title_xpath: //h3[@class="search-result-title"]
+    url_xpath: //div[@class="search-result-content"]/a/@href
+    weight: 1.0
     # Secondary: Reputable journalism
 
   # ========================================
   # IT / DEVELOPMENT (10 engines)
   # ========================================
-  
+
   - name: github
     engine: github
     shortcut: gh
     categories: [it]
-    weight: 1.5
     timeout: 3.5
+    weight: 1.5
     # Primary: Code repositories, essential for devs
-  
+
   - name: stackoverflow
     engine: stackexchange
     shortcut: so
-    api_site: stackoverflow
     categories: [it, q&a]
-    weight: 1.5
+    api_site: stackoverflow
     timeout: 3.5
+    weight: 1.5
     # Primary: Best Q&A for programming
-  
+
   - name: gitlab
     engine: json_engine
-    paging: true
-    search_url: https://gitlab.com/api/v4/projects?search={query}&page={pageno}
-    url_query: web_url
-    title_query: name_with_namespace
+    shortcut: gl
+    categories: [it]
     content_query: description
     page_size: 20
-    categories: [it]
-    shortcut: gl
-    weight: 1.0
+    paging: true
+    search_url: https://gitlab.com/api/v4/projects?search={query}&page={pageno}
     timeout: 3.5
+    title_query: name_with_namespace
+    url_query: web_url
+    weight: 1.0
     # Secondary: Code hosting alternative
-  
+
   - name: stack exchange
     engine: stackexchange
     shortcut: se
     categories: [it, q&a]
-    weight: 1.0
     timeout: 3.5
+    weight: 1.0
     # Secondary: Multi-topic Q&A network
-  
+
   - name: pypi
     engine: xpath
+    shortcut: pypi
+    categories: [it, packages]
+    content_xpath: //p[@class="package-snippet__description"]
     paging: true
     search_url: https://pypi.org/search/?q={query}&page={pageno}
-    url_xpath: //a[@class="package-snippet"]/@href
-    title_xpath: //h3[@class="package-snippet__title"]/span[@class="package-snippet__name"]
-    content_xpath: //p[@class="package-snippet__description"]
-    categories: [it, packages]
-    shortcut: pypi
-    weight: 1.0
     timeout: 4.0
+    title_xpath: //h3[@class="package-snippet__title"]/span[@class="package-snippet__name"]
+    url_xpath: //a[@class="package-snippet"]/@href
+    weight: 1.0
     # Secondary: Python packages
-  
+
   - name: npm
     engine: json_engine
-    search_url: https://api.npms.io/v2/search?q={query}&size=20
-    results_query: results
-    url_query: package/links/npm
-    title_query: package/name
-    content_query: package/description
-    categories: [it, packages]
     shortcut: npm
-    weight: 1.0
-    timeout: 4.0
+    categories: [it, packages]
+    content_query: package/description
     disabled: true
+    results_query: results
+    search_url: https://api.npms.io/v2/search?q={query}&size=20
+    timeout: 4.0
+    title_query: package/name
+    url_query: package/links/npm
+    weight: 1.0
     # Secondary: Node.js packages
-  
+
   - name: docker hub
     engine: docker_hub
     shortcut: dh
     categories: [it, packages]
-    weight: 0.5
     timeout: 4.0
+    weight: 0.5
     # Tertiary: Container images
-  
+
   - name: arch linux wiki
     engine: archlinux
     shortcut: al
     categories: [it]
-    weight: 0.5
     timeout: 3.5
+    weight: 0.5
     # Tertiary: Linux documentation
-  
+
   - name: mdn
     engine: mdn
     shortcut: mdn
     categories: [it]
-    weight: 1.0
-    timeout: 3.5
     disabled: true
+    timeout: 3.5
+    weight: 1.0
     # Secondary: Web development docs
-  
+
   - name: devdocs
     engine: devdocs
     shortcut: dd
     categories: [it]
-    weight: 0.5
-    timeout: 3.5
     disabled: true
+    timeout: 3.5
+    weight: 0.5
     # Tertiary: API documentation
 
   # ========================================
   # ACADEMIC / SCIENCE (8 engines)
   # ========================================
-  
+
   - name: google scholar
     engine: google_scholar
     shortcut: gos
     categories: [science]
-    weight: 1.5
     timeout: 5.0
+    weight: 1.5
     # Primary: Comprehensive academic search
-  
+
   - name: arxiv
     engine: arxiv
     shortcut: arx
     categories: [science]
-    weight: 1.0
     timeout: 5.0
+    weight: 1.0
     # Secondary: Preprints (physics, CS, math)
-  
+
   - name: pubmed
     engine: pubmed
     shortcut: pub
     categories: [science]
-    weight: 1.0
     timeout: 5.0
+    weight: 1.0
     # Secondary: Medical/life sciences
-  
+
   - name: semantic scholar
     engine: semantic_scholar
     shortcut: se7
     categories: [science]
-    weight: 1.0
-    timeout: 5.0
     disabled: true
+    timeout: 5.0
+    weight: 1.0
     # Secondary: AI-powered academic search
-  
+
   - name: crossref
     engine: crossref
     shortcut: cr
     categories: [science]
-    weight: 0.5
-    timeout: 6.0
     disabled: true
+    timeout: 6.0
+    weight: 0.5
     # Tertiary: DOI resolution, citations
-  
+
   - name: core.ac.uk
     engine: core
     shortcut: core
     categories: [science]
-    weight: 0.5
-    timeout: 6.0
     disabled: true
+    timeout: 6.0
+    weight: 0.5
     # Tertiary: Open access papers
-  
+
   - name: wikipedia
     engine: wikipedia
     shortcut: wp
     categories: [general, science]
-    weight: 1.5
     timeout: 3.0
+    weight: 1.5
     # Primary: Encyclopedia, reliable info
-  
+
   - name: wikidata
     engine: wikidata
     shortcut: wd
     categories: [general, science]
-    weight: 0.5
-    timeout: 4.0
     disabled: true
+    timeout: 4.0
+    weight: 0.5
     # Tertiary: Structured knowledge base
 
   # ========================================
   # MAPS (2 engines)
   # ========================================
-  
+
   - name: openstreetmap
     engine: openstreetmap
     shortcut: osm
     categories: [map]
-    weight: 1.5
     timeout: 3.5
+    weight: 1.5
     # Primary: Privacy-respecting maps
-  
+
   - name: photon
     engine: photon
     shortcut: ph
     categories: [map]
-    weight: 1.0
     timeout: 3.5
+    weight: 1.0
     # Secondary: OSM geocoding
 
   # ========================================
   # MUSIC (3 engines)
   # ========================================
-  
+
   - name: bandcamp
     engine: bandcamp
     shortcut: bc
     categories: [music]
-    weight: 1.0
     timeout: 4.0
+    weight: 1.0
     # Secondary: Independent music
-  
+
   - name: genius
     engine: genius
     shortcut: gen
     categories: [music]
-    weight: 0.5
     timeout: 4.0
+    weight: 0.5
     # Tertiary: Lyrics, annotations
-  
+
   - name: mixcloud
     engine: mixcloud
     shortcut: mc
     categories: [music]
-    weight: 0.5
-    timeout: 4.0
     disabled: true
+    timeout: 4.0
+    weight: 0.5
     # Tertiary: DJ mixes, radio shows
 
   # ========================================
   # FILES (1 engine)
   # ========================================
-  
+
   - name: openverse
     engine: openverse
     shortcut: opv
     categories: [images, music]
-    weight: 0.5
-    timeout: 4.0
     disabled: true
+    timeout: 4.0
+    weight: 0.5
     # Tertiary: CC-licensed content
 
 # =============================================================================
