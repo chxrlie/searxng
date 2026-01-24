@@ -1,0 +1,20 @@
+{
+  "src/less/style-ltr.less": {
+    "file": "sxng-ltr.min.css",
+    "name": "ltr",
+    "names": [
+      "ltr.css"
+    ],
+    "src": "src/less/style-ltr.less",
+    "isEntry": true
+  },
+  "src/less/style-rtl.less": {
+    "file": "sxng-rtl.min.css",
+    "name": "rtl",
+    "names": [
+      "rtl.css"
+    ],
+    "src": "src/less/style-rtl.less",
+    "isEntry": true
+  }
+}

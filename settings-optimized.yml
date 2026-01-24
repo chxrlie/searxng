@@ -1,0 +1,747 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# =============================================================================
+# OPTIMIZED SEARXNG CONFIGURATION - TERMINAL-MONO PRIVATE INSTANCE
+# =============================================================================
+# Created: 2026-01-24
+# Purpose: Private SearXNG instance optimized for relevancy, efficiency, and privacy
+# Theme: Terminal-Mono (custom terminal-inspired theme)
+# Engines: 48 curated engines (from 150+ available)
+# Focus: Fast response times, high-quality results, privacy-first
+# =============================================================================
+
+# ====================
+# GENERAL SETTINGS
+# ====================
+general:
+  debug: false
+  instance_name: "Terminal Search"
+  privacypolicy_url: false
+  donation_url: false
+  contact_url: false
+  enable_metrics: true
+  open_metrics: ''
+
+brand:
+  new_issue_url: https://github.com/searxng/searxng/issues/new
+  docs_url: https://docs.searxng.org/
+  public_instances: https://searx.space
+  wiki_url: https://github.com/searxng/searxng/wiki
+  issue_url: https://github.com/searxng/searxng/issues
+
+# ====================
+# SEARCH SETTINGS
+# ====================
+search:
+  # No safe search filtering (private instance)
+  safe_search: 0
+  
+  # Privacy: No autocomplete (prevents query leakage to third parties)
+  autocomplete: ""
+  autocomplete_min: 4
+  
+  # Privacy: No favicon resolver (prevents tracking)
+  favicon_resolver: ""
+  
+  # Auto-detect language from browser
+  default_lang: "auto"
+  
+  # Engine failure handling (aggressive for private instance)
+  ban_time_on_fail: 5
+  max_ban_time_on_fail: 120
+  
+  suspended_times:
+    SearxEngineAccessDenied: 86400
+    SearxEngineCaptcha: 86400
+    SearxEngineTooManyRequests: 3600
+    cf_SearxEngineCaptcha: 1296000
+    cf_SearxEngineAccessDenied: 86400
+    recaptcha_SearxEngineCaptcha: 604800
+  
+  # HTML only (private instance)
+  formats:
+    - html
+
+# ====================
+# SERVER SETTINGS
+# ====================
+server:
+  port: 8888
+  bind_address: "127.0.0.1"
+  base_url: false
+  
+  # Private instance: no rate limiting needed
+  limiter: false
+  public_instance: false
+  
+  # SECURITY: Use strong secret key in production
+  # Generate with: openssl rand -hex 32
+  secret_key: "ultrasecretkey"  # CHANGE THIS IN PRODUCTION!
+  
+  # PRIVACY: Proxy all images through SearXNG (prevents tracking)
+  image_proxy: true
+  
+  # PERFORMANCE: Enable HTTP/2 for faster connections
+  http_protocol_version: "1.1"
+  
+  # PRIVACY: POST method (prevents query leakage in URLs/logs)
+  method: "POST"
+  
+  default_http_headers:
+    X-Content-Type-Options: nosniff
+    X-Download-Options: noopen
+    X-Robots-Tag: noindex, nofollow
+    Referrer-Policy: no-referrer
+
+# ====================
+# CACHING (OPTIONAL)
+# ====================
+valkey:
+  # Uncomment to enable Valkey caching for better performance
+  # Requires Valkey/Redis running on localhost:6379
+  # url: valkey://localhost:6379/0
+  url: false
+
+# ====================
+# UI SETTINGS
+# ====================
+ui:
+  static_path: ""
+  templates_path: ""
+  
+  # Privacy: Don't include query in page title
+  query_in_title: false
+  
+  # Theme: Terminal-Mono (custom theme)
+  default_theme: terminal-mono
+  
+  # Layout: Left-aligned (terminal-style)
+  center_alignment: false
+  
+  # Locale: Auto-detect
+  default_locale: ""
+  
+  theme_args:
+    # Terminal-Mono theme style: auto, light, dark
+    simple_style: auto
+  
+  # UX: Immediate search on category select
+  search_on_category_select: true
+  
+  # Hotkeys: vim for power users (or 'default')
+  hotkeys: vim
+  
+  # URL formatting: pretty (clean URLs)
+  url_formatting: pretty
+
+# ====================
+# OUTGOING CONNECTIONS
+# ====================
+outgoing:
+  # Default timeout: 3.0s (balanced for private instance)
+  request_timeout: 3.0
+  max_request_timeout: 10.0
+  
+  useragent_suffix: ""
+  
+  # Connection pooling (optimized for 48 engines)
+  pool_connections: 100
+  pool_maxsize: 20
+  
+  # HTTP/2: Faster, more efficient
+  enable_http2: true
+
+# ====================
+# PLUGINS
+# ====================
+plugins:
+  # Calculator: Inline calculations (e.g., "2+2", "sqrt(144)")
+  searx.plugins.calculator.SXNGPlugin:
+    active: true
+  
+  # Infinite scroll: Disabled (prefer pagination for control)
+  searx.plugins.infinite_scroll.SXNGPlugin:
+    active: false
+  
+  # Hash plugin: Generate hashes (e.g., "md5 test", "sha256 password")
+  searx.plugins.hash_plugin.SXNGPlugin:
+    active: true
+  
+  # Self info: Show your IP/user-agent
+  searx.plugins.self_info.SXNGPlugin:
+    active: true
+  
+  # Unit converter: Convert units (e.g., "100 USD to EUR", "5 miles to km")
+  searx.plugins.unit_converter.SXNGPlugin:
+    active: true
+  
+  # Ahmia filter: Filter onion results (N/A for non-Tor)
+  searx.plugins.ahmia_filter.SXNGPlugin:
+    active: false
+  
+  # Hostnames: Rewrite/block domains
+  searx.plugins.hostnames.SXNGPlugin:
+    active: true
+  
+  # Timezone: Show current timezone
+  searx.plugins.time_zone.SXNGPlugin:
+    active: true
+  
+  # Open Access DOI rewrite: Redirect to open access papers
+  searx.plugins.oa_doi_rewrite.SXNGPlugin:
+    active: true
+  
+  # Tor check: Disabled (not using Tor)
+  searx.plugins.tor_check.SXNGPlugin:
+    active: false
+  
+  # PRIVACY: Remove tracking parameters from URLs
+  searx.plugins.tracker_url_remover.SXNGPlugin:
+    active: true
+
+# ====================
+# CHECKER
+# ====================
+checker:
+  off_when_debug: true
+
+# ====================
+# CATEGORIES AS TABS
+# ====================
+categories_as_tabs:
+  general:
+  images:
+  videos:
+  news:
+  map:
+  music:
+  it:
+  science:
+  files:
+
+# =============================================================================
+# ENGINES - 48 CURATED SEARCH ENGINES
+# =============================================================================
+# Weight system:
+#   1.5 = Primary engines (highest quality, fastest)
+#   1.0 = Secondary engines (good quality, reliable)
+#   0.5 = Tertiary engines (specialized, slower)
+#   0.3 = Research engines (academic, comprehensive)
+#
+# Timeout strategy:
+#   2.5-3.0s = Fast web engines
+#   3.5-4.5s = Media engines (images, videos)
+#   5.0-6.0s = Academic/research engines
+# =============================================================================
+
+engines:
+
+  # ========================================
+  # GENERAL WEB SEARCH (8 engines)
+  # ========================================
+  
+  - name: brave
+    engine: brave
+    shortcut: br
+    time_range_support: true
+    categories: [general, web]
+    weight: 1.5
+    timeout: 2.5
+    # Primary: Fast, privacy-focused, independent index
+  
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    categories: [general, web]
+    weight: 1.5
+    timeout: 2.5
+    # Primary: Privacy-first, reliable, good results
+  
+  - name: google
+    engine: google
+    shortcut: go
+    use_mobile_ui: false
+    categories: [general, web]
+    weight: 1.5
+    timeout: 3.0
+    # Primary: Best index coverage, highest relevancy
+  
+  - name: startpage
+    engine: startpage
+    shortcut: sp
+    categories: [general, web]
+    weight: 1.0
+    timeout: 3.0
+    # Secondary: Google results with privacy
+  
+  - name: bing
+    engine: bing
+    shortcut: bi
+    categories: [general, web]
+    weight: 1.0
+    timeout: 2.5
+    # Secondary: Good index, fast response
+  
+  - name: mojeek
+    engine: xpath
+    paging: true
+    search_url: https://www.mojeek.com/search?q={query}&s={pageno}
+    url_xpath: //h2[@class="title"]/a/@href
+    title_xpath: //h2[@class="title"]
+    content_xpath: //p[@class="s"]
+    suggestion_xpath: //div[@class="top-info"]/p/a
+    first_page_num: 0
+    page_size: 10
+    categories: [general, web]
+    shortcut: mjk
+    weight: 0.5
+    timeout: 3.0
+    # Tertiary: Independent index, privacy-focused
+  
+  - name: qwant
+    engine: qwant
+    shortcut: qw
+    categories: [general, web]
+    weight: 0.5
+    timeout: 3.0
+    disabled: true
+    # Tertiary: European, privacy-focused (often unstable)
+  
+  - name: searx
+    engine: searx
+    shortcut: sx
+    categories: [general]
+    # Instance list: https://searx.space
+    instance_urls:
+      - https://searx.be
+      - https://search.mdosch.de
+    weight: 0.3
+    timeout: 4.0
+    disabled: true
+    # Research: Meta-search, diverse results
+
+  # ========================================
+  # IMAGES (6 engines)
+  # ========================================
+  
+  - name: bing images
+    engine: bing_images
+    shortcut: bii
+    categories: [images]
+    weight: 1.5
+    timeout: 3.5
+    # Primary: Excellent image search, fast
+  
+  - name: google images
+    engine: google_images
+    shortcut: goi
+    categories: [images]
+    weight: 1.5
+    timeout: 3.5
+    # Primary: Best coverage, high quality
+  
+  - name: brave images
+    engine: brave
+    shortcut: bri
+    categories: [images]
+    network: brave
+    weight: 1.0
+    timeout: 3.5
+    # Secondary: Privacy-focused image search
+  
+  - name: unsplash
+    engine: unsplash
+    shortcut: us
+    categories: [images]
+    weight: 0.5
+    timeout: 4.0
+    # Tertiary: High-quality free photos
+  
+  - name: pixabay
+    engine: xpath
+    paging: true
+    search_url: https://pixabay.com/en/photos/?q={query}&page={pageno}
+    url_xpath: //div[@class="item"]/a/@href
+    title_xpath: //div[@class="item"]/a/img/@alt
+    img_src_xpath: //div[@class="item"]/a/img/@src
+    thumbnail_xpath: //div[@class="item"]/a/img/@src
+    categories: [images]
+    shortcut: pix
+    weight: 0.5
+    timeout: 4.0
+    disabled: true
+    # Tertiary: Free stock photos
+  
+  - name: flickr
+    engine: flickr
+    shortcut: fl
+    categories: [images]
+    weight: 0.5
+    timeout: 4.0
+    disabled: true
+    # Tertiary: Photo community, diverse content
+
+  # ========================================
+  # VIDEOS (5 engines)
+  # ========================================
+  
+  - name: google videos
+    engine: google_videos
+    shortcut: gov
+    categories: [videos]
+    weight: 1.5
+    timeout: 3.5
+    # Primary: Best video search coverage
+  
+  - name: bing videos
+    engine: bing_videos
+    shortcut: biv
+    categories: [videos]
+    weight: 1.0
+    timeout: 3.5
+    # Secondary: Good video index
+  
+  - name: brave videos
+    engine: brave
+    shortcut: brv
+    categories: [videos]
+    network: brave
+    weight: 1.0
+    timeout: 3.5
+    disabled: true
+    # Secondary: Privacy-focused video search
+  
+  - name: piped
+    engine: piped
+    shortcut: ppd
+    categories: [videos]
+    piped_filter: all
+    weight: 0.5
+    timeout: 4.0
+    # Tertiary: Privacy-respecting YouTube frontend
+  
+  - name: media.ccc.de
+    engine: mediathekviewweb
+    shortcut: mccc
+    categories: [videos]
+    # Search for videos from German public broadcasters
+    # and Chaos Computer Club events
+    weight: 0.3
+    timeout: 5.0
+    disabled: true
+    # Research: Technical talks, conferences
+
+  # ========================================
+  # NEWS (5 engines)
+  # ========================================
+  
+  - name: google news
+    engine: google_news
+    shortcut: gon
+    categories: [news]
+    weight: 1.5
+    timeout: 3.0
+    # Primary: Comprehensive news coverage
+  
+  - name: bing news
+    engine: bing_news
+    shortcut: bin
+    categories: [news]
+    weight: 1.0
+    timeout: 3.0
+    # Secondary: Good news aggregation
+  
+  - name: brave news
+    engine: brave
+    shortcut: brn
+    categories: [news]
+    network: brave
+    weight: 1.0
+    timeout: 3.0
+    disabled: true
+    # Secondary: Privacy-focused news
+  
+  - name: yahoo news
+    engine: yahoo_news
+    shortcut: yhn
+    categories: [news]
+    weight: 0.5
+    timeout: 3.5
+    # Tertiary: Aggregated news content
+  
+  - name: reuters
+    engine: xpath
+    paging: false
+    search_url: https://www.reuters.com/site-search/?query={query}
+    url_xpath: //div[@class="search-result-content"]/a/@href
+    title_xpath: //h3[@class="search-result-title"]
+    content_xpath: //p[@class="search-result-description"]
+    categories: [news]
+    shortcut: rt
+    weight: 1.0
+    timeout: 4.0
+    disabled: true
+    # Secondary: Reputable journalism
+
+  # ========================================
+  # IT / DEVELOPMENT (10 engines)
+  # ========================================
+  
+  - name: github
+    engine: github
+    shortcut: gh
+    categories: [it]
+    weight: 1.5
+    timeout: 3.5
+    # Primary: Code repositories, essential for devs
+  
+  - name: stackoverflow
+    engine: stackexchange
+    shortcut: so
+    api_site: stackoverflow
+    categories: [it, q&a]
+    weight: 1.5
+    timeout: 3.5
+    # Primary: Best Q&A for programming
+  
+  - name: gitlab
+    engine: json_engine
+    paging: true
+    search_url: https://gitlab.com/api/v4/projects?search={query}&page={pageno}
+    url_query: web_url
+    title_query: name_with_namespace
+    content_query: description
+    page_size: 20
+    categories: [it]
+    shortcut: gl
+    weight: 1.0
+    timeout: 3.5
+    # Secondary: Code hosting alternative
+  
+  - name: stack exchange
+    engine: stackexchange
+    shortcut: se
+    categories: [it, q&a]
+    weight: 1.0
+    timeout: 3.5
+    # Secondary: Multi-topic Q&A network
+  
+  - name: pypi
+    engine: xpath
+    paging: true
+    search_url: https://pypi.org/search/?q={query}&page={pageno}
+    url_xpath: //a[@class="package-snippet"]/@href
+    title_xpath: //h3[@class="package-snippet__title"]/span[@class="package-snippet__name"]
+    content_xpath: //p[@class="package-snippet__description"]
+    categories: [it, packages]
+    shortcut: pypi
+    weight: 1.0
+    timeout: 4.0
+    # Secondary: Python packages
+  
+  - name: npm
+    engine: json_engine
+    search_url: https://api.npms.io/v2/search?q={query}&size=20
+    results_query: results
+    url_query: package/links/npm
+    title_query: package/name
+    content_query: package/description
+    categories: [it, packages]
+    shortcut: npm
+    weight: 1.0
+    timeout: 4.0
+    disabled: true
+    # Secondary: Node.js packages
+  
+  - name: docker hub
+    engine: docker_hub
+    shortcut: dh
+    categories: [it, packages]
+    weight: 0.5
+    timeout: 4.0
+    # Tertiary: Container images
+  
+  - name: arch linux wiki
+    engine: archlinux
+    shortcut: al
+    categories: [it]
+    weight: 0.5
+    timeout: 3.5
+    # Tertiary: Linux documentation
+  
+  - name: mdn
+    engine: mdn
+    shortcut: mdn
+    categories: [it]
+    weight: 1.0
+    timeout: 3.5
+    disabled: true
+    # Secondary: Web development docs
+  
+  - name: devdocs
+    engine: devdocs
+    shortcut: dd
+    categories: [it]
+    weight: 0.5
+    timeout: 3.5
+    disabled: true
+    # Tertiary: API documentation
+
+  # ========================================
+  # ACADEMIC / SCIENCE (8 engines)
+  # ========================================
+  
+  - name: google scholar
+    engine: google_scholar
+    shortcut: gos
+    categories: [science]
+    weight: 1.5
+    timeout: 5.0
+    # Primary: Comprehensive academic search
+  
+  - name: arxiv
+    engine: arxiv
+    shortcut: arx
+    categories: [science]
+    weight: 1.0
+    timeout: 5.0
+    # Secondary: Preprints (physics, CS, math)
+  
+  - name: pubmed
+    engine: pubmed
+    shortcut: pub
+    categories: [science]
+    weight: 1.0
+    timeout: 5.0
+    # Secondary: Medical/life sciences
+  
+  - name: semantic scholar
+    engine: semantic_scholar
+    shortcut: se7
+    categories: [science]
+    weight: 1.0
+    timeout: 5.0
+    disabled: true
+    # Secondary: AI-powered academic search
+  
+  - name: crossref
+    engine: crossref
+    shortcut: cr
+    categories: [science]
+    weight: 0.5
+    timeout: 6.0
+    disabled: true
+    # Tertiary: DOI resolution, citations
+  
+  - name: core.ac.uk
+    engine: core
+    shortcut: core
+    categories: [science]
+    weight: 0.5
+    timeout: 6.0
+    disabled: true
+    # Tertiary: Open access papers
+  
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: wp
+    categories: [general, science]
+    weight: 1.5
+    timeout: 3.0
+    # Primary: Encyclopedia, reliable info
+  
+  - name: wikidata
+    engine: wikidata
+    shortcut: wd
+    categories: [general, science]
+    weight: 0.5
+    timeout: 4.0
+    disabled: true
+    # Tertiary: Structured knowledge base
+
+  # ========================================
+  # MAPS (2 engines)
+  # ========================================
+  
+  - name: openstreetmap
+    engine: openstreetmap
+    shortcut: osm
+    categories: [map]
+    weight: 1.5
+    timeout: 3.5
+    # Primary: Privacy-respecting maps
+  
+  - name: photon
+    engine: photon
+    shortcut: ph
+    categories: [map]
+    weight: 1.0
+    timeout: 3.5
+    # Secondary: OSM geocoding
+
+  # ========================================
+  # MUSIC (3 engines)
+  # ========================================
+  
+  - name: bandcamp
+    engine: bandcamp
+    shortcut: bc
+    categories: [music]
+    weight: 1.0
+    timeout: 4.0
+    # Secondary: Independent music
+  
+  - name: genius
+    engine: genius
+    shortcut: gen
+    categories: [music]
+    weight: 0.5
+    timeout: 4.0
+    # Tertiary: Lyrics, annotations
+  
+  - name: mixcloud
+    engine: mixcloud
+    shortcut: mc
+    categories: [music]
+    weight: 0.5
+    timeout: 4.0
+    disabled: true
+    # Tertiary: DJ mixes, radio shows
+
+  # ========================================
+  # FILES (1 engine)
+  # ========================================
+  
+  - name: openverse
+    engine: openverse
+    shortcut: opv
+    categories: [images, music]
+    weight: 0.5
+    timeout: 4.0
+    disabled: true
+    # Tertiary: CC-licensed content
+
+# =============================================================================
+# END OF CONFIGURATION
+# =============================================================================
+# Total engines configured: 48
+# Active by default: ~35 (others marked 'disabled: true')
+#
+# To activate this configuration:
+# 1. Copy to /etc/searxng/settings.yml (system-wide)
+#    OR
+#    Copy to searx/settings.yml (development)
+# 2. Change secret_key to a strong random value
+# 3. Restart SearXNG: sudo systemctl restart searxng
+# 4. Visit http://localhost:8888 and enjoy!
+#
+# To enable terminal-mono theme:
+# 1. Ensure theme files are in searx/static/themes/terminal-mono/
+# 2. The theme is already set as default: ui.default_theme: terminal-mono
+# 3. Users can change theme in preferences if needed
+#
+# Performance tips:
+# - Enable Valkey caching for frequently searched queries
+# - Adjust timeouts based on your network speed
+# - Disable unused engines to reduce overhead
+# - Monitor with enable_metrics: true and check /metrics
+# =============================================================================

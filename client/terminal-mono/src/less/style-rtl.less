@@ -1,0 +1,183 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+/*
+ * Terminal-Mono Theme - Right-to-Left (RTL) Styles
+ * Main entry point for RTL languages (Arabic, Hebrew, Persian, etc.)
+ */
+
+// ====================
+// IMPORT GOOGLE FONTS
+// ====================
+
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+
+// ====================
+// IMPORT THEME FILES
+// ====================
+
+// 1. Definitions (variables, colors, fonts)
+@import "definitions.less";
+
+// 2. Base styles (typography, forms, elements)
+@import "terminal-base.less";
+
+// 3. Component styles (search, results, buttons, etc.)
+@import "terminal-components.less";
+
+// 4. Animation styles (transitions, keyframes)
+@import "terminal-animations.less";
+
+// 5. Responsive styles (breakpoints)
+@import "terminal-responsive.less";
+
+// ====================
+// RTL-SPECIFIC OVERRIDES
+// ====================
+
+html {
+  direction: rtl;
+}
+
+// Text alignment
+body {
+  text-align: right;
+}
+
+// Search form RTL
+#search_form {
+  flex-direction: row-reverse;
+}
+
+// Category tabs RTL
+#categories {
+  justify-content: flex-end;
+}
+
+// Results RTL
+.result {
+  .url,
+  .content,
+  .publishdate,
+  .engines {
+    text-align: right;
+  }
+}
+
+// Sidebar RTL
+#sidebar {
+  float: left;
+  margin-right: @results-gap;
+  margin-left: 0;
+}
+
+// Pagination RTL
+#pagination {
+  flex-direction: row-reverse;
+}
+
+// Back to top button RTL
+#backToTop {
+  left: 2rem;
+  right: auto;
+}
+
+// Modal close button RTL
+.dialog-modal .close {
+  left: 1rem;
+  right: auto;
+}
+
+// Lists RTL
+ul, ol {
+  padding-right: 2em;
+  padding-left: 0;
+}
+
+// Blockquote RTL
+blockquote {
+  border-right: 4px solid var(--color-btn-background);
+  border-left: none;
+  padding-right: 1em;
+  padding-left: 0;
+}
+
+// Input icons RTL
+select {
+  background-position: left 0.5em center;
+  padding-left: 2em;
+  padding-right: 0.75em;
+}
+
+// Terminal prompt RTL (reversed)
+.terminal-prompt::before {
+  content: " <";
+  margin-left: 0.5em;
+  margin-right: 0;
+}
+
+// Vim selection arrow RTL
+.result.selected::before {
+  content: "<";
+  right: 0.5rem;
+  left: auto;
+}
+
+// Category checkbox RTL
+.category input[type="checkbox"] {
+  margin-left: 0.5em;
+  margin-right: 0;
+}
+
+// Header brand RTL
+#main_header .brand::before {
+  content: " <";
+  margin-left: 0.5em;
+  margin-right: 0;
+}
+
+// Small phone header brand RTL
+@media (max-width: @phone) {
+  #main_header .brand::before {
+    content: "<";
+  }
+}
+
+// Message prefixes RTL
+.message {
+  &.error::before {
+    content: " [ERROR]";
+  }
+  
+  &.warning::before {
+    content: " [WARNING]";
+  }
+  
+  &.success::before {
+    content: " [SUCCESS]";
+  }
+}
+
+// Engines wrapper RTL
+.result .engines {
+  &::before {
+    content: "]";
+  }
+  
+  &::after {
+    content: "[";
+  }
+}
+
+// ====================
+// PRINT STYLES (RTL)
+// ====================
+
+@media print {
+  html {
+    direction: rtl;
+  }
+  
+  body {
+    text-align: right;
+  }
+}

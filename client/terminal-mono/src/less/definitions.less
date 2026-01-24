@@ -1,0 +1,434 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+/*
+ * Terminal-Mono Theme for SearXNG
+ * A terminal-inspired, monospace theme with high contrast and accessibility
+ * 
+ * Design Philosophy:
+ * - Monospace font throughout (Atkinson Hyperlegible Mono)
+ * - Terminal aesthetic (sharp borders, no shadows, minimal animations)
+ * - High contrast for accessibility (WCAG AA++ compliant)
+ * - Green-on-black dark mode (authentic CRT terminal feel)
+ * - Clean, efficient, nostalgic
+ */
+
+// ====================
+// TYPOGRAPHY
+// ====================
+
+// Font: Atkinson Hyperlegible Mono (Google Fonts)
+// Fallback: system monospace fonts
+@font-family-mono: 'Atkinson Hyperlegible Mono', 'Courier New', 'Courier', 'Consolas', 'Monaco', monospace;
+
+// Font sizes
+@font-size-base: 14px;
+@font-size-small: 12px;
+@font-size-large: 16px;
+@font-size-xlarge: 18px;
+@font-size-heading: 20px;
+
+// Line heights (optimized for monospace)
+@line-height-base: 1.6;
+@line-height-tight: 1.4;
+@line-height-loose: 1.8;
+
+// Letter spacing (monospace doesn't need much)
+@letter-spacing-base: 0;
+@letter-spacing-tight: -0.02em;
+@letter-spacing-loose: 0.05em;
+
+// ====================
+// SPACING & LAYOUT
+// ====================
+
+// Container widths
+@results-width: 64rem;    // ~1024px max width
+@results-width-padding: 2rem;
+
+// Breakpoints
+@phone: 35em;       // 560px
+@tablet: 50em;      // 800px
+@desktop: 79.75em;  // 1276px
+
+// Grid & spacing
+@results-gap: 1rem;         // 16px gap between results
+@results-margin: 0.75rem;   // 12px margin
+@results-padding: 1rem;     // 16px padding
+
+// Border styling (terminal-style sharp edges)
+@border-width: 1px;
+@border-radius: 0px;        // Sharp corners for terminal aesthetic
+@border-style: solid;
+
+// Shadows (none for terminal aesthetic)
+@box-shadow: none;
+
+// ====================
+// ANIMATION TIMINGS
+// ====================
+
+@transition-speed: 150ms;
+@transition-easing: ease;
+
+// Terminal cursor blink (optional)
+@cursor-blink-speed: 1s;
+
+// ====================
+// LIGHT THEME COLORS
+// ====================
+
+:root {
+  /// Base Colors (High Contrast)
+  --color-base-font: #1a1a1a;
+  --color-base-font-rgb: 26, 26, 26;
+  --color-base-background: #fafafa;
+  --color-base-background-mobile: #fafafa;
+  --color-url-font: #0066ff;           // Bright blue for links
+  --color-url-visited-font: #6600cc;   // Purple for visited
+  
+  /// Header Colors
+  --color-header-background: #ffffff;
+  --color-header-border: #1a1a1a;
+  
+  /// Footer Colors
+  --color-footer-background: #ffffff;
+  --color-footer-border: #1a1a1a;
+  
+  /// Sidebar Colors
+  --color-sidebar-border: #1a1a1a;
+  --color-sidebar-font: #1a1a1a;
+  --color-sidebar-background: #ffffff;
+  
+  /// BackToTop Colors
+  --color-backtotop-font: #1a1a1a;
+  --color-backtotop-border: #1a1a1a;
+  --color-backtotop-background: #ffffff;
+  
+  /// Button Colors (Terminal Green Accent)
+  --color-btn-background: #00aa00;     // Terminal green
+  --color-btn-font: #ffffff;
+  --color-show-btn-background: #cccccc;
+  --color-show-btn-font: #1a1a1a;
+  
+  /// Search Input Colors
+  --color-search-border: #1a1a1a;
+  --color-search-shadow: none;         // No shadows in terminal theme
+  --color-search-background: #ffffff;
+  --color-search-font: #1a1a1a;
+  --color-search-background-hover: #00aa00;
+  
+  /// Modal Colors (Terminal Aesthetics)
+  --color-error: #cc0000;              // Terminal red
+  --color-error-background: #ffcccc;
+  --color-warning: #ffaa00;            // Terminal amber
+  --color-warning-background: #fff4cc;
+  --color-success: #00aa00;            // Terminal green
+  --color-success-background: #ccffcc;
+  
+  /// Categories Colors
+  --color-categories-item-selected-font: #00aa00;
+  --color-categories-item-border-selected: #00aa00;
+  
+  /// Autocomplete Colors
+  --color-autocomplete-font: #1a1a1a;
+  --color-autocomplete-border: #1a1a1a;
+  --color-autocomplete-shadow: none;
+  --color-autocomplete-background: #ffffff;
+  --color-autocomplete-background-hover: #e6e6e6;
+  
+  /// Answer Colors
+  --color-answer-font: #1a1a1a;
+  --color-answer-background: #ffffff;
+  --color-result-keyvalue-col-table: #f5f5f5;
+  --color-result-keyvalue-odd: #f5f5f5;
+  --color-result-keyvalue-even: #ffffff;
+  
+  /// Results Colors
+  --color-result-background: #ffffff;
+  --color-result-border: #1a1a1a;
+  --color-result-url-font: #1a1a1a;
+  --color-result-vim-selected: #e6ffe6;      // Light green for vim selection
+  --color-result-vim-arrow: #00aa00;
+  --color-result-description-highlight-font: #1a1a1a;
+  --color-result-link-font: #0066ff;
+  --color-result-link-font-highlight: #0066ff;
+  --color-result-link-visited-font: #6600cc;
+  --color-result-publishdate-font: #666666;
+  --color-result-engines-font: #666666;
+  --color-result-search-url-border: #1a1a1a;
+  --color-result-search-url-font: #1a1a1a;
+  
+  // Images Colors
+  --color-result-image-span-font: #1a1a1a;
+  --color-result-image-span-font-selected: #ffffff;
+  --color-result-image-background: #ffffff;
+  
+  /// Settings Colors
+  --color-settings-tr-hover: #e6e6e6;
+  --color-settings-engine-description-font: #666666;
+  --color-settings-table-group-background: #f5f5f5;
+  
+  /// Detail modal
+  --color-result-detail-font: #fafafa;
+  --color-result-detail-label-font: #cccccc;
+  --color-result-detail-background: #1a1a1a;
+  --color-result-detail-hr: #666666;
+  --color-result-detail-link: #66aaff;
+  --color-result-detail-loader-border: rgba(255, 255, 255, 0.2);
+  --color-result-detail-loader-borderleft: rgba(0, 0, 0, 0);
+  
+  /// Toolkit Colors
+  --color-toolkit-badge-font: #ffffff;
+  --color-toolkit-badge-background: #666666;
+  --color-toolkit-kbd-font: #fafafa;
+  --color-toolkit-kbd-background: #1a1a1a;
+  --color-toolkit-dialog-border: #1a1a1a;
+  --color-toolkit-dialog-background: #ffffff;
+  --color-toolkit-tabs-label-border: #ffffff;
+  --color-toolkit-tabs-section-border: #1a1a1a;
+  --color-toolkit-select-background: #e6e6e6;
+  --color-toolkit-select-border: #1a1a1a;
+  --color-toolkit-select-background-hover: #cccccc;
+  --color-toolkit-input-text-font: #1a1a1a;
+  --color-toolkit-checkbox-onoff-off-background: #cccccc;
+  --color-toolkit-checkbox-onoff-on-background: #cccccc;
+  --color-toolkit-checkbox-onoff-on-mark-background: #00aa00;
+  --color-toolkit-checkbox-onoff-on-mark-color: #ffffff;
+  --color-toolkit-checkbox-onoff-off-mark-background: #999999;
+  --color-toolkit-checkbox-onoff-off-mark-color: #ffffff;
+  --color-toolkit-checkbox-label-background: #cccccc;
+  --color-toolkit-checkbox-label-border: #1a1a1a;
+  --color-toolkit-checkbox-input-border: #00aa00;
+  --color-toolkit-engine-tooltip-border: #1a1a1a;
+  --color-toolkit-engine-tooltip-background: #ffffff;
+  --color-toolkit-loader-border: rgba(0, 0, 0, 0.2);
+  --color-toolkit-loader-borderleft: rgba(255, 255, 255, 0);
+  --color-doc-code: #1a1a1a;
+  --color-doc-code-background: #e6e6e6;
+  
+  /// Other misc colors
+  --color-bar-chart-primary: #00aa00;
+  --color-bar-chart-secondary: #ffaa00;
+  --color-image-resolution-background: rgba(0, 0, 0, 0.8);
+  --color-image-resolution-font: #ffffff;
+  --color-loading-indicator: rgba(255, 255, 255, 0.2);
+  --color-loading-indicator-gap: #ffffff;
+  --color-line-number: #666666;
+  
+  // Favicons Colors
+  --color-favicon-background-color: #e6e6e6;
+  --color-favicon-border-color: #cccccc;
+}
+
+// ====================
+// DARK THEME COLORS (Terminal Green-on-Black)
+// ====================
+
+.dark-themes() {
+  /// Base Colors (True Black Background)
+  --color-base-font: #00aa00;          // Terminal green text
+  --color-base-font-rgb: 0, 170, 0;
+  --color-base-background: #0a0a0a;    // True black (CRT screen)
+  --color-base-background-mobile: #0a0a0a;
+  --color-url-font: #0088ff;           // Cyan blue for links
+  --color-url-visited-font: #aa00ff;   // Bright purple for visited
+  
+  /// Header Colors
+  --color-header-background: #000000;
+  --color-header-border: #00aa00;
+  
+  /// Footer Colors
+  --color-footer-background: #000000;
+  --color-footer-border: #00aa00;
+  
+  /// Sidebar Colors
+  --color-sidebar-border: #00aa00;
+  --color-sidebar-font: #00aa00;
+  --color-sidebar-background: #000000;
+  
+  /// BackToTop Colors
+  --color-backtotop-font: #00aa00;
+  --color-backtotop-border: #00aa00;
+  --color-backtotop-background: #000000;
+  
+  /// Button Colors
+  --color-btn-background: #00aa00;
+  --color-btn-font: #000000;           // Black text on green button
+  --color-show-btn-background: #333333;
+  --color-show-btn-font: #00aa00;
+  
+  /// Search Input Colors
+  --color-search-border: #00aa00;
+  --color-search-shadow: none;
+  --color-search-background: #000000;
+  --color-search-font: #00aa00;
+  --color-search-background-hover: #00aa00;
+  
+  /// Modal Colors
+  --color-error: #ff3333;              // Bright red
+  --color-error-background: #330000;
+  --color-warning: #ffaa00;            // Terminal amber
+  --color-warning-background: #332200;
+  --color-success: #00ff00;            // Bright green
+  --color-success-background: #003300;
+  
+  /// Categories Colors
+  --color-categories-item-selected-font: #00ff00;
+  --color-categories-item-border-selected: #00ff00;
+  
+  /// Autocomplete Colors
+  --color-autocomplete-font: #00aa00;
+  --color-autocomplete-border: #00aa00;
+  --color-autocomplete-shadow: none;
+  --color-autocomplete-background: #000000;
+  --color-autocomplete-background-hover: #1a1a1a;
+  
+  /// Answer Colors
+  --color-answer-font: #00aa00;
+  --color-answer-background: #000000;
+  --color-result-keyvalue-col-table: #0a0a0a;
+  --color-result-keyvalue-odd: #0a0a0a;
+  --color-result-keyvalue-even: #000000;
+  
+  /// Results Colors
+  --color-result-background: #000000;
+  --color-result-border: #00aa00;
+  --color-result-url-font: #00aa00;
+  --color-result-vim-selected: #1a3311;   // Dark green for vim selection
+  --color-result-vim-arrow: #00ff00;
+  --color-result-description-highlight-font: #00ff00;
+  --color-result-link-font: #0088ff;
+  --color-result-link-font-highlight: #00ff00;
+  --color-result-link-visited-font: #aa00ff;
+  --color-result-publishdate-font: #008800;
+  --color-result-engines-font: #008800;
+  --color-result-search-url-border: #00aa00;
+  --color-result-search-url-font: #00aa00;
+  
+  // Images Colors
+  --color-result-image-span-font: #00aa00;
+  --color-result-image-span-font-selected: #000000;
+  --color-result-image-background: #000000;
+  
+  /// Settings Colors
+  --color-settings-tr-hover: #1a1a1a;
+  --color-settings-engine-description-font: #008800;
+  --color-settings-table-group-background: #0a0a0a;
+  
+  /// Detail modal
+  --color-result-detail-font: #00aa00;
+  --color-result-detail-label-font: #008800;
+  --color-result-detail-background: #000000;
+  --color-result-detail-hr: #00aa00;
+  --color-result-detail-link: #0088ff;
+  --color-result-detail-loader-border: rgba(0, 170, 0, 0.2);
+  --color-result-detail-loader-borderleft: rgba(0, 0, 0, 0);
+  
+  /// Toolkit Colors
+  --color-toolkit-badge-font: #000000;
+  --color-toolkit-badge-background: #00aa00;
+  --color-toolkit-kbd-font: #00aa00;
+  --color-toolkit-kbd-background: #000000;
+  --color-toolkit-dialog-border: #00aa00;
+  --color-toolkit-dialog-background: #000000;
+  --color-toolkit-tabs-label-border: #000000;
+  --color-toolkit-tabs-section-border: #00aa00;
+  --color-toolkit-select-background: #1a1a1a;
+  --color-toolkit-select-border: #00aa00;
+  --color-toolkit-select-background-hover: #333333;
+  --color-toolkit-input-text-font: #00aa00;
+  --color-toolkit-checkbox-onoff-off-background: #1a1a1a;
+  --color-toolkit-checkbox-onoff-on-background: #1a1a1a;
+  --color-toolkit-checkbox-onoff-on-mark-background: #00aa00;
+  --color-toolkit-checkbox-onoff-on-mark-color: #000000;
+  --color-toolkit-checkbox-onoff-off-mark-background: #333333;
+  --color-toolkit-checkbox-onoff-off-mark-color: #00aa00;
+  --color-toolkit-checkbox-label-background: #1a1a1a;
+  --color-toolkit-checkbox-label-border: #00aa00;
+  --color-toolkit-checkbox-input-border: #00aa00;
+  --color-toolkit-engine-tooltip-border: #00aa00;
+  --color-toolkit-engine-tooltip-background: #000000;
+  --color-toolkit-loader-border: rgba(0, 170, 0, 0.2);
+  --color-toolkit-loader-borderleft: rgba(0, 0, 0, 0);
+  --color-doc-code: #00aa00;
+  --color-doc-code-background: #1a1a1a;
+  
+  /// Other misc colors
+  --color-bar-chart-primary: #00aa00;
+  --color-bar-chart-secondary: #ffaa00;
+  --color-image-resolution-background: rgba(0, 0, 0, 0.9);
+  --color-image-resolution-font: #00aa00;
+  --color-loading-indicator: rgba(0, 170, 0, 0.2);
+  --color-loading-indicator-gap: #00aa00;
+  --color-line-number: #008800;
+  
+  // Favicons Colors
+  --color-favicon-background-color: #1a1a1a;
+  --color-favicon-border-color: #00aa00;
+}
+
+// ====================
+// DARK THEME SELECTORS
+// ====================
+
+// Auto theme detection
+@media (prefers-color-scheme: dark) {
+  :root {
+    .dark-themes();
+  }
+}
+
+// Manual dark theme selection
+[data-theme="dark"] {
+  .dark-themes();
+}
+
+// ====================
+// TERMINAL-SPECIFIC UTILITIES
+// ====================
+
+// Terminal cursor (for search input)
+.terminal-cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  background-color: var(--color-base-font);
+  animation: terminal-blink @cursor-blink-speed step-end infinite;
+}
+
+@keyframes terminal-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  50.01%, 100% {
+    opacity: 0;
+  }
+}
+
+// Terminal box styling (sharp borders, no shadows)
+.terminal-box {
+  border: @border-width @border-style var(--color-result-border);
+  border-radius: @border-radius;
+  box-shadow: @box-shadow;
+  background-color: var(--color-result-background);
+  color: var(--color-base-font);
+}
+
+// Terminal button styling
+.terminal-btn {
+  border: @border-width @border-style var(--color-btn-background);
+  border-radius: @border-radius;
+  background-color: var(--color-btn-background);
+  color: var(--color-btn-font);
+  font-family: @font-family-mono;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: @letter-spacing-loose;
+  transition: background-color @transition-speed @transition-easing,
+              color @transition-speed @transition-easing;
+  
+  &:hover {
+    background-color: var(--color-base-font);
+    color: var(--color-base-background);
+  }
+}

@@ -1,0 +1,145 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+/*
+ * Terminal-Mono Theme - Left-to-Right (LTR) Styles
+ * Main entry point for LTR languages (English, French, Spanish, etc.)
+ */
+
+// ====================
+// IMPORT GOOGLE FONTS
+// ====================
+
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+
+// Note: Atkinson Hyperlegible doesn't have a true monospace variant
+// We're using the regular variant with monospace fallbacks
+// For true monospace, consider: JetBrains Mono, Fira Code, IBM Plex Mono
+
+// ====================
+// IMPORT THEME FILES
+// ====================
+
+// 1. Definitions (variables, colors, fonts)
+@import "definitions.less";
+
+// 2. Base styles (typography, forms, elements)
+@import "terminal-base.less";
+
+// 3. Component styles (search, results, buttons, etc.)
+@import "terminal-components.less";
+
+// 4. Animation styles (transitions, keyframes)
+@import "terminal-animations.less";
+
+// 5. Responsive styles (breakpoints)
+@import "terminal-responsive.less";
+
+// ====================
+// LTR-SPECIFIC OVERRIDES
+// ====================
+
+html {
+  direction: ltr;
+}
+
+// Text alignment
+body {
+  text-align: left;
+}
+
+// Search form LTR
+#search_form {
+  flex-direction: row;
+}
+
+// Category tabs LTR
+#categories {
+  justify-content: flex-start;
+}
+
+// Results LTR
+.result {
+  .url,
+  .content,
+  .publishdate,
+  .engines {
+    text-align: left;
+  }
+}
+
+// Sidebar LTR
+#sidebar {
+  float: right;
+  margin-left: @results-gap;
+  margin-right: 0;
+}
+
+// Pagination LTR
+#pagination {
+  flex-direction: row;
+}
+
+// Back to top button LTR
+#backToTop {
+  right: 2rem;
+  left: auto;
+}
+
+// Modal close button LTR
+.dialog-modal .close {
+  right: 1rem;
+  left: auto;
+}
+
+// Lists LTR
+ul, ol {
+  padding-left: 2em;
+  padding-right: 0;
+}
+
+// Blockquote LTR
+blockquote {
+  border-left: 4px solid var(--color-btn-background);
+  border-right: none;
+  padding-left: 1em;
+  padding-right: 0;
+}
+
+// Input icons LTR (if any)
+select {
+  background-position: right 0.5em center;
+  padding-right: 2em;
+  padding-left: 0.75em;
+}
+
+// Terminal prompt LTR
+.terminal-prompt::before {
+  margin-right: 0.5em;
+  margin-left: 0;
+}
+
+// Vim selection arrow LTR
+.result.selected::before {
+  left: 0.5rem;
+  right: auto;
+}
+
+// Category checkbox LTR
+.category input[type="checkbox"] {
+  margin-right: 0.5em;
+  margin-left: 0;
+}
+
+// ====================
+// PRINT STYLES (LTR)
+// ====================
+
+@media print {
+  html {
+    direction: ltr;
+  }
+  
+  body {
+    text-align: left;
+  }
+}

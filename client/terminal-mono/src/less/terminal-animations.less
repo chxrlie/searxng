@@ -1,0 +1,406 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+/*
+ * Terminal-Mono Theme - Animations
+ * Minimal animations for terminal aesthetic (150ms transitions only)
+ */
+
+// ====================
+// TRANSITION UTILITIES
+// ====================
+
+.transition-base {
+  transition: all @transition-speed @transition-easing;
+}
+
+.transition-color {
+  transition: color @transition-speed @transition-easing,
+              background-color @transition-speed @transition-easing,
+              border-color @transition-speed @transition-easing;
+}
+
+.transition-transform {
+  transition: transform @transition-speed @transition-easing;
+}
+
+.transition-opacity {
+  transition: opacity @transition-speed @transition-easing;
+}
+
+// ====================
+// TERMINAL CURSOR BLINK
+// ====================
+
+@keyframes terminal-cursor-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: terminal-cursor-blink @cursor-blink-speed step-end infinite;
+}
+
+// Search input cursor effect
+#q:focus::after {
+  content: "█";
+  display: inline-block;
+  margin-left: 0.125em;
+  color: var(--color-search-font);
+  animation: terminal-cursor-blink @cursor-blink-speed step-end infinite;
+}
+
+// ====================
+// LOADING SPINNER (Terminal Style)
+// ====================
+
+@keyframes terminal-spinner {
+  0% { content: "|"; }
+  25% { content: "/"; }
+  50% { content: "—"; }
+  75% { content: "\\"; }
+  100% { content: "|"; }
+}
+
+.loader {
+  display: inline-block;
+  font-family: @font-family-mono;
+  font-size: @font-size-large;
+  color: var(--color-btn-background);
+  
+  &::after {
+    content: "|";
+    animation: terminal-spinner 0.8s linear infinite;
+  }
+}
+
+// Alternative loading animation (rotating brackets)
+@keyframes terminal-loading-brackets {
+  0% { content: "[ ]"; }
+  25% { content: "[. ]"; }
+  50% { content: "[.. ]"; }
+  75% { content: "[...]"; }
+  100% { content: "[ ]"; }
+}
+
+.loader-brackets::after {
+  content: "[ ]";
+  animation: terminal-loading-brackets 1.2s linear infinite;
+}
+
+// ====================
+// FOCUS GLOW (Terminal Style)
+// ====================
+
+@keyframes focus-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 2px var(--color-btn-background);
+  }
+  50% {
+    box-shadow: 0 0 0 3px var(--color-btn-background);
+  }
+}
+
+*:focus {
+  animation: focus-glow 1s ease-in-out infinite;
+}
+
+// ====================
+// FADE IN ANIMATION
+// ====================
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in @transition-speed @transition-easing;
+}
+
+// ====================
+// SLIDE DOWN ANIMATION
+// ====================
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-down {
+  animation: slide-down @transition-speed @transition-easing;
+}
+
+// ====================
+// TYPING INDICATOR (Terminal Style)
+// ====================
+
+@keyframes typing-indicator {
+  0%, 100% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+}
+
+.typing-indicator::after {
+  content: "";
+  animation: typing-indicator 1.5s linear infinite;
+}
+
+// ====================
+// SEARCH RESULTS STAGGER
+// ====================
+
+// Stagger animation for search results appearing
+.result {
+  animation: fade-in 0.3s @transition-easing;
+  
+  &:nth-child(1) { animation-delay: 0.05s; }
+  &:nth-child(2) { animation-delay: 0.1s; }
+  &:nth-child(3) { animation-delay: 0.15s; }
+  &:nth-child(4) { animation-delay: 0.2s; }
+  &:nth-child(5) { animation-delay: 0.25s; }
+  &:nth-child(6) { animation-delay: 0.3s; }
+  &:nth-child(7) { animation-delay: 0.35s; }
+  &:nth-child(8) { animation-delay: 0.4s; }
+  &:nth-child(9) { animation-delay: 0.45s; }
+  &:nth-child(10) { animation-delay: 0.5s; }
+}
+
+// ====================
+// BUTTON PRESS EFFECT
+// ====================
+
+button,
+.btn,
+input[type="submit"],
+input[type="button"] {
+  transition: transform 0.1s @transition-easing,
+              background-color @transition-speed @transition-easing,
+              color @transition-speed @transition-easing,
+              border-color @transition-speed @transition-easing;
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// ====================
+// LINK UNDERLINE ANIMATION
+// ====================
+
+a {
+  position: relative;
+  transition: color @transition-speed @transition-easing;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width @transition-speed @transition-easing;
+  }
+  
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+// ====================
+// MODAL FADE IN
+// ====================
+
+.dialog-modal {
+  animation: fade-in 0.2s @transition-easing;
+}
+
+.dialog-modal-overlay {
+  animation: fade-in 0.2s @transition-easing;
+}
+
+// ====================
+// AUTOCOMPLETE SLIDE DOWN
+// ====================
+
+#autocomplete {
+  animation: slide-down 0.2s @transition-easing;
+}
+
+// ====================
+// BACK TO TOP FADE
+// ====================
+
+#backToTop {
+  transition: opacity @transition-speed @transition-easing,
+              visibility @transition-speed @transition-easing,
+              background-color @transition-speed @transition-easing,
+              color @transition-speed @transition-easing,
+              border-color @transition-speed @transition-easing;
+}
+
+// ====================
+// CATEGORY TAB TRANSITIONS
+// ====================
+
+.category label {
+  transition: background-color @transition-speed @transition-easing,
+              color @transition-speed @transition-easing,
+              border-color @transition-speed @transition-easing;
+}
+
+// ====================
+// IMAGE RESULT HOVER
+// ====================
+
+.image_result {
+  transition: border-color @transition-speed @transition-easing,
+              transform @transition-speed @transition-easing;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// ====================
+// TERMINAL PROMPT ANIMATION (Optional)
+// ====================
+
+@keyframes terminal-prompt {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.terminal-prompt::before {
+  content: "> ";
+  color: var(--color-btn-background);
+  animation: terminal-prompt 1.5s ease-in-out infinite;
+}
+
+// ====================
+// PROGRESS BAR (Terminal Style)
+// ====================
+
+@keyframes progress-fill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-result-border);
+  border: @border-width @border-style var(--color-result-border);
+  overflow: hidden;
+  
+  .progress-fill {
+    height: 100%;
+    background-color: var(--color-btn-background);
+    animation: progress-fill 2s @transition-easing;
+  }
+}
+
+// ====================
+// VIM MODE SELECTED RESULT
+// ====================
+
+.result.selected {
+  transition: background-color @transition-speed @transition-easing,
+              border-color @transition-speed @transition-easing;
+}
+
+// ====================
+// SETTINGS TABLE ROW HOVER
+// ====================
+
+table tr {
+  transition: background-color @transition-speed @transition-easing;
+}
+
+// ====================
+// PREFERENCES REDUCE MOTION
+// ====================
+
+// Respect user's preference for reduced motion
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .cursor-blink,
+  .loader,
+  .typing-indicator,
+  .terminal-prompt {
+    animation: none !important;
+  }
+}
+
+// ====================
+// SEARCH INPUT FOCUS STATE
+// ====================
+
+#q {
+  transition: border-color @transition-speed @transition-easing,
+              box-shadow @transition-speed @transition-easing;
+}
+
+// ====================
+// MESSAGE ANIMATIONS
+// ====================
+
+.message {
+  animation: slide-down 0.3s @transition-easing;
+}
+
+// ====================
+// THEME TOGGLE TRANSITION
+// ====================
+
+:root {
+  transition: background-color 0.3s @transition-easing,
+              color 0.3s @transition-easing;
+}
+
+[data-theme="dark"] {
+  transition: background-color 0.3s @transition-easing,
+              color 0.3s @transition-easing;
+}
